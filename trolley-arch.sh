@@ -28,7 +28,7 @@ else
     FILES=() \
     HOOKS=(base udev autodetect modconf block filesystems fsck)" > /mnt/etc/mkinitcpio.conf
     # install needed packages
-    pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd iwd networkmanager btrfs-progs
+    pacstrap /mnt base base-devel linux-hardened linux-firmware nano dhcpcd iwd networkmanager btrfs-progs
     echo $HOSTNAME >> /mnt/etc/hostname
     # generate a fstab and go to chroot
     genfstab -U /mnt >> /mnt/etc/fstab
