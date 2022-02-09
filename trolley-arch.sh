@@ -36,7 +36,7 @@ else
     then
         cp /usr/local/bin/trolley-arch-chroot /mnt/trolley-arch-chroot.sh
     else
-        cp ichroot.sh /mnt/trolley-arch-chroot.sh
+        cp trolley-arch-chroot.sh /mnt/trolley-arch-chroot.sh
     fi
     arch-chroot /mnt ./trolley-arch-chroot.sh
     echo "Finished! You can now reboot, if there are any issues please report them on github."
