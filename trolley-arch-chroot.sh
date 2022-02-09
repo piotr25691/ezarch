@@ -14,5 +14,5 @@ passwd
 pacman --noconfirm -R grub
 systemctl enable dhcpcd
 systemctl enable iwd
-systemctl enable networkmanager
+systemctl enable NetworkManager
 exit
