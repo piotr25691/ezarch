@@ -6,8 +6,10 @@ else
     DEV=/dev/sda
 fi
 
+# ask for hostname
 read -p "Please enter a hostname to use: " HOSTNAME
 
+# check boot mode
 if [ -e /sys/firmware/efi/efivars ]
 then
     echo "This script is not compatible with UEFI!"
@@ -17,27 +19,20 @@ else
     # format partitions
     mkfs.fat -F32 ${DEV}1
     mkfs.btrfs -f ${DEV}2
-    # mount fs
+    # mount file systems
     mount -o compress-force=zstd:15 ${DEV}2 /mnt
     mkdir /mnt/boot
     mkdir /mnt/etc
     mount ${DEV}1 /mnt/boot
-    # mkinitcpio
-    echo "MODULES=(btrfs) \
-    BINARIES=() \
-    FILES=() \
-    HOOKS=(base udev autodetect modconf block filesystems fsck)" > /mnt/etc/mkinitcpio.conf
-    # install needed packages
+    # add btrfs to mknitcpio
+    echo "HOOKS=(base udev autodetect modconf block filesystems fsck btrfs)" >> /mnt/etc/mkinitcpio.conf
+    # install the system
     pacstrap /mnt linux-hardened linux-firmware pacman dhcpcd sed nano systemd-sysvcompat pam sudo gzip networkmanager iwd btrfs-progs
+    # set the hostname
     echo $HOSTNAME >> /mnt/etc/hostname
-    # generate a fstab and go to chroot
+    # generate fstab
     genfstab -U /mnt >> /mnt/etc/fstab
-    if [ -e /usr/local/bin/trolley-arch-chroot ]
-    then
-        cp /usr/local/bin/trolley-arch-chroot /mnt/trolley-arch-chroot.sh
-    else
-        cp trolley-arch-chroot.sh /mnt/trolley-arch-chroot.sh
-    fi
+    # perform chroot tasks
     arch-chroot /mnt ./trolley-arch-chroot.sh
     echo "Finished! You can now reboot, if there are any issues please report them on github."
 fi
