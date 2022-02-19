@@ -23,7 +23,7 @@ read -p "Enter the username of your user: " USERNAME
 useradd -m $USERNAME
 usermod -aG wheel $USERNAME
 echo "Please enter your user password: "
-read -s "Please enter your user password: " USERPASS
+read -s USERPASS
 echo "$USERNAME:$USERPASS" | chpasswd
 # set up sudo
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
