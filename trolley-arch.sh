@@ -27,7 +27,7 @@ else
     # add btrfs to mknitcpio
     echo "HOOKS=(base udev autodetect modconf block filesystems fsck btrfs)" >> /mnt/etc/mkinitcpio.conf
     # install the system
-    pacstrap /mnt linux-hardened linux-firmware pacman dhcpcd sed micro systemd-sysvcompat pam sudo gzip networkmanager iwd btrfs-progs
+    pacstrap /mnt linux-hardened linux-firmware pacman dhcpcd sed which micro systemd-sysvcompat pam sudo gzip networkmanager iwd btrfs-progs
     # set the hostname
     echo $HOSTNAME >> /mnt/etc/hostname
     # generate fstab
