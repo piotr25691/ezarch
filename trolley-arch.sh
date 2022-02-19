@@ -6,7 +6,7 @@ else
     DEV=/dev/sda
 fi
 
-HOSTNAME=kurwa
+read -p "Please enter a hostname to use: " HOSTNAME
 
 if [ -e /sys/firmware/efi/efivars ]
 then
