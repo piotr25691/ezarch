@@ -12,6 +12,7 @@ then
     grub-install --target=x86_64-efi --force $DEV
 else
     grub-install --target=i386-pc --force $DEV
+fi
 grub-mkconfig -o /boot/grub/grub.cfg
 # set up root password
 read -ps "Please enter your root password: " ROOTPASS
