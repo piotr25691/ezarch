@@ -12,7 +12,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 read -p "Please enter your root password: " ROOTPASS
 echo "root:$ROOTPASS" | chpasswd
 read -p "Enter the username of your user: " USERNAME
-useradd $USERNAME
+useradd -m $USERNAME
 usermod -aG wheel $USERNAME
 read -p "Please enter your user password: " USERPASS
 echo "$USERNAME:$USERPASS" | chpasswd
