@@ -33,6 +33,7 @@ else
     # generate fstab
     genfstab -U /mnt >> /mnt/etc/fstab
     # perform chroot tasks
+    cp ./trolley-arch-chroot.sh /mnt
     arch-chroot /mnt ./trolley-arch-chroot.sh
     echo "Finished! You can now reboot, if there are any issues please report them on github."
 fi
