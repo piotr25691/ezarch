@@ -6,7 +6,8 @@ else
     DEV=/dev/sda
 fi
 # install grub
-pacman --noconfirm -Sy grub
+
+pacman --noconfirm -Sy grub efibootmgr
 if [ -e /sys/firmware/efi/efivars ]
 then
     grub-install --target=x86_64-efi --force $DEV
@@ -31,7 +32,7 @@ sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
 ln -s $(which micro) /bin/nano
 ln -s $(which micro) /bin/vim
 # delete grub after config
-pacman --noconfirm -R grub
+pacman --noconfirm -R grub efibootmgr
 # enable the network
 systemctl enable dhcpcd
 systemctl enable iwd
