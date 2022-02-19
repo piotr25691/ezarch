@@ -39,4 +39,7 @@ systemctl enable iwd
 systemctl enable NetworkManager
 # remove chroot file after install
 rm -rf /trolley-arch-chroot.sh
+# clean-up
+pacman --noconfirm -Rns $(pacman -Qdtq)
+pacman --noconfirm -Scc
 exit
