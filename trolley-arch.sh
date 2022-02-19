@@ -15,6 +15,7 @@ then
     parted ${DEV} \ mklabel gpt \ mkpart primary 1 120M \ mkpart primary 120M 100% -s
 else
     parted ${DEV} \ mklabel msdos \ mkpart primary 1 120M \ mkpart primary 120M 100% -s
+fi
 # format partitions
 mkfs.vfat ${DEV}1
 mkfs.btrfs -f ${DEV}2
