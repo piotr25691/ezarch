@@ -15,13 +15,13 @@ else
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
 # set up root password
-read -ps "Please enter your root password: " ROOTPASS
+read -p -s "Please enter your root password: " ROOTPASS
 echo "root:$ROOTPASS" | chpasswd
 # set up normal user
 read -p "Enter the username of your user: " USERNAME
 useradd -m $USERNAME
 usermod -aG wheel $USERNAME
-read -ps "Please enter your user password: " USERPASS
+read -p -s "Please enter your user password: " USERPASS
 echo "$USERNAME:$USERPASS" | chpasswd
 # set up sudo
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
