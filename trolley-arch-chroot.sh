@@ -26,4 +26,5 @@ pacman --noconfirm -R grub
 systemctl enable dhcpcd
 systemctl enable iwd
 systemctl enable NetworkManager
+rm -rf /trolley-arch-chroot.sh
 exit
