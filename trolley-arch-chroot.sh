@@ -19,7 +19,7 @@ echo "Please enter your root password: "
 read -s ROOTPASS
 echo "root:$ROOTPASS" | chpasswd
 # set up normal user
-read -s "Enter the username of your user: " USERNAME
+read -p "Enter the username of your user: " USERNAME
 useradd -m $USERNAME
 usermod -aG wheel $USERNAME
 echo "Please enter your user password: "
