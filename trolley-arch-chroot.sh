@@ -20,6 +20,9 @@ read -ps "Please enter your user password: " USERPASS
 echo "$USERNAME:$USERPASS" | chpasswd
 # set up sudo
 sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
+# create symlinks for compatibility with micro
+ln -s $(which micro) /bin/nano
+ln -s $(which micro) /bin/vim
 # delete grub after config
 pacman --noconfirm -R grub
 # enable the network
