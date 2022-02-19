@@ -12,6 +12,7 @@ read -p "Please enter a hostname to use: " HOSTNAME
 # check boot mode and create paritions appropriately
 if [ -e /sys/firmware/efi/efivars ]
 then
+    echo "WARNING: using experimental UEFI support, WIP"
     parted ${DEV} \ mklabel gpt \ mkpart primary 1 120M \ mkpart primary 120M 100% -s
     mkfs.vfat ${DEV}1
     mkfs.btrfs -f ${DEV}2
@@ -39,4 +40,4 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # perform chroot tasks
 cp ./trolley-arch-chroot.sh /mnt
 arch-chroot /mnt ./trolley-arch-chroot.sh
-echo "Finished! You can now reboot, if there are any issues please report them on github."
+echo "You have successfully installed Arch Linux on your computer. You may now reboot."
