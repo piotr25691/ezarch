@@ -17,7 +17,7 @@ then
     mkfs.vfat ${DEV}1
     mkfs.btrfs -f ${DEV}2
     mount -o compress-force=zstd:15 ${DEV}2 /mnt
-    mkdir /mnt/boot/efi
+    mkdir -p /mnt/boot/efi
     mkdir /mnt/etc
     mount ${DEV}1 /mnt/boot/efi
 else
