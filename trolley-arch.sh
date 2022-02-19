@@ -13,17 +13,21 @@ read -p "Please enter a hostname to use: " HOSTNAME
 if [ -e /sys/firmware/efi/efivars ]
 then
     parted ${DEV} \ mklabel gpt \ mkpart primary 1 120M \ mkpart primary 120M 100% -s
+    mkfs.vfat ${DEV}1
+    mkfs.btrfs -f ${DEV}2
+    mount -o compress-force=zstd:15 ${DEV}2 /mnt
+    mkdir /mnt/boot/efi
+    mkdir /mnt/etc
+    mount ${DEV}1 /mnt/boot/efi
 else
     parted ${DEV} \ mklabel msdos \ mkpart primary 1 120M \ mkpart primary 120M 100% -s
+    mkfs.vfat ${DEV}1
+    mkfs.btrfs -f ${DEV}2
+    mount -o compress-force=zstd:15 ${DEV}2 /mnt
+    mkdir /mnt/boot
+    mkdir /mnt/etc
+    mount ${DEV}1 /mnt/boot
 fi
-# format partitions
-mkfs.vfat ${DEV}1
-mkfs.btrfs -f ${DEV}2
-# mount file systems
-mount -o compress-force=zstd:15 ${DEV}2 /mnt
-mkdir /mnt/boot
-mkdir /mnt/etc
-mount ${DEV}1 /mnt/boot
 # add btrfs to mknitcpio
 echo "HOOKS=(base udev autodetect modconf block filesystems fsck btrfs)" >> /mnt/etc/mkinitcpio.conf
 # install the system
