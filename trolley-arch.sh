@@ -1,6 +1,7 @@
 #!/bin/bash
-BLK=$(lsblk | sed -n '2p' | awk '{print $1}')
-DEV="/dev/$BLK"
+lsblk
+echo Please enter the device name to use...
+read DEV
 
 # ask for hostname
 read -p "Please enter a hostname to use: " HOSTNAME
@@ -34,5 +35,5 @@ echo $HOSTNAME >> /mnt/etc/hostname
 genfstab -U /mnt >> /mnt/etc/fstab
 # perform chroot tasks
 cp ./trolley-arch-chroot.sh /mnt
-arch-chroot /mnt ./trolley-arch-chroot.sh
+arch-chroot /mnt ./trolley-arch-chroot.sh $DEV
 echo "You have successfully installed Arch Linux on your computer. You may now reboot."
