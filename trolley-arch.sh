@@ -1,10 +1,6 @@
 #!/bin/bash
-if [ -e /dev/vda ]
-then
-    DEV=/dev/vda
-else
-    DEV=/dev/sda
-fi
+BLK=$(lsblk | sed -n '2p' | awk '{print $1}')
+DEV="/dev/$BLK"
 
 # ask for hostname
 read -p "Please enter a hostname to use: " HOSTNAME
