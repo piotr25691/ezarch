@@ -1,6 +1,5 @@
 #!/bin/bash
-BLK=$(lsblk | sed -n '2p' | awk '{print $1}')
-DEV="/dev/$BLK"
+DEV=$1
 
 # install grub
 pacman --noconfirm -Sy grub efibootmgr
