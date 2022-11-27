@@ -1,12 +1,8 @@
 #!/bin/bash
-if [ -e /dev/vda ]
-then
-    DEV=/dev/vda
-else
-    DEV=/dev/sda
-fi
-# install grub
+BLK=$(lsblk | sed -n '2p' | awk '{print $1}')
+DEV="/dev/$BLK"
 
+# install grub
 pacman --noconfirm -Sy grub efibootmgr
 if [ -e /sys/firmware/efi/efivars ]
 then
