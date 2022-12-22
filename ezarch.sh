@@ -48,7 +48,7 @@ fi
 
 # Add BTRFS to /etc/mkinitcpio.conf
 # This script uses the BTRFS filesystem to allow you to save some storage.
-# If you want to use EXT4 instead, look somewhere.
+# If you want to use EXT4 instead, look elsewhere.
 echo "HOOKS=(base udev autodetect modconf block filesystems fsck btrfs)" >> /mnt/etc/mkinitcpio.conf
 
 # Install the system
