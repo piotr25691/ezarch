@@ -17,8 +17,7 @@
 # Prompt the user to select the device to install Arch on
 # Blind assumptions caused the script to try install to a non-writable device, hence why this has been implemented.
 lsblk
-echo Please enter the device name to use...
-read DEV
+read -p "Please enter the device name to use... " DEV
 
 # Ask the user for the hostname
 # The hostname is the name used to identify the device on your network.
