@@ -48,12 +48,12 @@ fi
 # Add BTRFS to /etc/mkinitcpio.conf
 # This script uses the BTRFS filesystem to allow you to save some storage.
 # If you want to use EXT4 instead, look elsewhere.
-echo "HOOKS=(base udev autodetect modconf block filesystems fsck btrfs)" >> /mnt/etc/mkinitcpio.conf
+echo "HOOKS=(base systemd autodetect modconf block filesystems fsck btrfs)" >> /mnt/etc/mkinitcpio.conf
 
 # Install the system
 # This installs the bare minimum of packages required to install Arch.
 # You can add any additional dependencies yourself afterwards.
-pacstrap /mnt linux-hardened linux-firmware pacman dhcpcd sed which micro systemd-sysvcompat pam sudo gzip networkmanager iwd btrfs-progs
+pacstrap /mnt linux-hardened linux-firmware pacman dhcpcd sed which micro systemd-sysvcompat pam opendoas gzip networkmanager iwd btrfs-progs
 
 
 # Set up the previously selected hostname

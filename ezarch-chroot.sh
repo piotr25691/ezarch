@@ -28,9 +28,10 @@ read -s USERPASS
 echo "$USERNAME:$USERPASS" | chpasswd
 
 
-# Enable wheel privileges for sudo
-# They are disabled by default.
-sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
+# Enable wheel privileges for doas
+# They don't get configured with the installation of the package.
+printf "permit persist :wheel\npermit nopass root\n" > /etc/doas.conf
+
 
 # Create symlinks to micro
 # The default text editor of choice in ezArch is Micro.
