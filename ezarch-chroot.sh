@@ -1,6 +1,12 @@
 #!/bin/bash
 DEV=$1
 
+if [ -z $DEV ]
+then
+    echo "Don't run me raw, I'm supposed to be executed together with `ezarch.sh`!"
+    exit 1
+fi
+
 # Install the GRUB bootloader
 # This is the part that allows you to boot into the system.
 pacman --noconfirm -Sy grub efibootmgr
