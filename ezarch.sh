@@ -19,6 +19,28 @@
 lsblk
 read -p "Please enter the device name to use... " DEV
 
+# Determine partitioning mode from selected block device name
+# This will enable the script to work on MMC and NVMe drives.
+if [ $DEV == "/dev/sda" ]
+then
+    MODE=0
+elif [ $DEV == "/dev/vda" ]
+then
+    MODE=0
+elif [ $DEV == "/dev/hda" ]
+then
+    MODE=0
+elif [ $DEV == "/dev/nvme0n1" ]
+then
+    MODE=1
+elif [ $DEV == "/dev/mmcblk0" ]
+then
+    MODE=2
+else
+    echo "Invalid block device, did you type that right?"
+    exit 1
+fi
+
 # Ask the user for the hostname
 # The hostname is the name used to identify the device on your network.
 # In case of home networks, this does not really matter, but you can still name your device here.
@@ -29,20 +51,40 @@ read -p "Please enter a hostname to use: " HOSTNAME
 if [ -e /sys/firmware/efi/efivars ]
 then
     parted ${DEV} \ mklabel gpt \ mkpart primary 1 120M \ mkpart primary 120M 100% -s
-    mkfs.vfat ${DEV}1
-    mkfs.btrfs -f ${DEV}2
-    mount -o compress-force=zstd:15 ${DEV}2 /mnt
-    mkdir -p /mnt/boot/efi
-    mkdir /mnt/etc
-    mount ${DEV}1 /mnt/boot/efi
+    if [ $MODE == 0 ]
+    then
+        mkfs.vfat ${DEV}1
+        mkfs.btrfs -f ${DEV}2
+        mount -o compress-force=zstd:15 ${DEV}2 /mnt
+        mkdir -p /mnt/boot/efi
+        mkdir /mnt/etc
+        mount ${DEV}1 /mnt/boot/efi
+    else
+        mkfs.vfat ${DEV}p1
+        mkfs.btrfs ${DEV}p2
+        mount -o compress-force=zstd:15 ${DEV}p2 /mnt
+        mkdir -p /mnt/boot/efi
+        mkdir /mnt/etc
+        mount ${DEV}p1 /mnt/boot/efi
+    fi   
 else
     parted ${DEV} \ mklabel msdos \ mkpart primary 1 120M \ mkpart primary 120M 100% -s
-    mkfs.vfat ${DEV}1
-    mkfs.btrfs -f ${DEV}2
-    mount -o compress-force=zstd:15 ${DEV}2 /mnt
-    mkdir /mnt/boot
-    mkdir /mnt/etc
-    mount ${DEV}1 /mnt/boot
+    if [ $MODE == 0 ]
+    then
+        mkfs.vfat ${DEV}1
+        mkfs.btrfs -f ${DEV}2
+        mount -o compress-force=zstd:15 ${DEV}2 /mnt
+        mkdir -p /mnt/boot
+        mkdir /mnt/etc
+        mount ${DEV}1 /mnt/boot
+    else
+        mkfs.vfat ${DEV}p1
+        mkfs.btrfs ${DEV}p2
+        mount -o compress-force=zstd:15 ${DEV}p2 /mnt
+        mkdir -p /mnt/boot
+        mkdir /mnt/etc
+        mount ${DEV}p1 /mnt/boot
+    fi   
 fi
 
 # Add BTRFS to /etc/mkinitcpio.conf
