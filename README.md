@@ -1,5 +1,5 @@
 # ezArch
-An easy way to get Arch installed on your machine!
+An easy way to get a small Arch base installed on your machine!
 
 ## Contents
 This script consists of two parts:
