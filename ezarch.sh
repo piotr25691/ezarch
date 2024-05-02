@@ -95,7 +95,7 @@ echo "HOOKS=(base udev autodetect modconf block filesystems fsck btrfs)" >> /mnt
 # Install the system
 # This installs the bare minimum of packages required to install Arch.
 # You can add any additional dependencies yourself afterwards.
-pacstrap /mnt linux-hardened linux-firmware pacman dhcpcd sed which micro systemd-sysvcompat pam opendoas gzip networkmanager iwd btrfs-progs
+pacstrap /mnt linux linux-firmware pacman sed which nano vim systemd-sysvcompat pam sudo gzip networkmanager btrfs-progs
 
 
 # Set up the previously selected hostname
