@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # ezArch - An easy way to get Arch installed on your machine!
 #
