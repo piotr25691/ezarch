@@ -1,9 +1,10 @@
 #!/bin/bash
+set -e
 DEV=$1
 
-if [ -z $DEV ]
+if [[ $DEV == /dev/* ]]
 then
-    echo "Don't run me raw, I'm supposed to be executed together with `ezarch.sh`!"
+    printf "Invalid device provided.\nIn case you're wondering, run './ezarch.sh' to allow this script to continue.\n"
     exit 1
 fi
 
