@@ -2,7 +2,7 @@
 set -e
 DEV=$1
 
-if [[ $DEV == /dev/* ]]
+if [[ "$DEV" =~ ^/dev/* ]]
 then
     printf "Invalid device provided.\nIn case you're wondering, run './ezarch.sh' to allow this script to continue.\n"
     exit 1
