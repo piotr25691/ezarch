@@ -38,20 +38,12 @@ echo "$USERNAME:$USERPASS" | chpasswd
 # They don't get configured with the installation of the package.
 printf "permit persist :wheel\npermit nopass root\n" > /etc/doas.conf
 
-# Create symlinks to micro
-# The default text editor of choice in ezArch is Micro.
-# If you want to go back to Nano, or use Vim, delete the symlinks and install the corresponding package.
-ln -s $(which micro) /bin/nano
-ln -s $(which micro) /bin/vim
-
 # Delete GRUB after setup
 # GRUB packages are not needed after setup, so they will be deleted to save space.
 pacman --noconfirm -R grub efibootmgr
 
 # Enable network services
 # These services will allow you to connect to the internet.
-systemctl enable dhcpcd
-systemctl enable iwd
 systemctl enable NetworkManager
 
 # Remove the chroot file
